@@ -58,6 +58,23 @@ resource "aws_s3_object" "project1" {
   acl  = "public-read"
 }
 
+resource "aws_s3_bucket_policy" "bucket_policy" {
+  bucket = aws_s3_bucket.mybucket.id
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Sid = "PublicReadGetObject",
+        Effect = "Allow",
+        Principal = "*",
+        Action = "s3:GetObject",
+        Resource = "arn:aws:s3:::${aws_s3_bucket.mybucket.id}/*"
+      }
+    ]
+  })
+}
+
+
 resource "aws_s3_object" "project2" {
   bucket = aws_s3_bucket.mybucket.id
   key = "project2.jpeg"
