@@ -19,15 +19,6 @@ resource "aws_s3_bucket_public_access_block" "mybucketaccess" {
   restrict_public_buckets = false
 }
 
-resource "aws_s3_bucket_acl" "mybucketacl" {
-  depends_on = [ 
-    aws_s3_bucket_ownership_controls.mybucketownership,
-    aws_s3_bucket_public_access_block.mybucketaccess,
-   ]
-
-   bucket = aws_s3_bucket.mybucket.id
-   acl = "public-read"
-}
 
 resource "github_repository" "AutomateTerraform" {
   name = "AutomateTerraform"
@@ -89,7 +80,4 @@ resource "aws_s3_bucket_website_configuration" "website" {
   error_document {
     key = "error.html"
   }
-
-
-  depends_on = [ aws_s3_bucket_acl.mybucketacl ]
 }
