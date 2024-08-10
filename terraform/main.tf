@@ -20,11 +20,11 @@ resource "aws_s3_bucket_public_access_block" "mybucketaccess" {
 }
 
 
-resource "github_repository" "AutomateTerraform" {
-  name = "AutomateTerraform"
-  description = "This repo is created using Terraform"
-  visibility = "public"
-}
+# resource "github_repository" "AutomateTerraform" {
+#   name = "AutomateTerraform"
+#   description = "This repo is created using Terraform"
+#   visibility = "public"
+# }
 
 resource "aws_s3_object" "index" {
   bucket = aws_s3_bucket.mybucket.id
