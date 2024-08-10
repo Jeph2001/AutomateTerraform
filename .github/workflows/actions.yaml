@@ -15,6 +15,11 @@ jobs:
           uses: actions/checkout@v1
 
 
+        - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v1
+          with:
+            terraform_version: 1.9.3
+
         - name: Terraform Initialization
           uses: hashicorp/terraform-github-actions/init@v0.4.0
 
