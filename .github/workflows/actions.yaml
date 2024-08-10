@@ -11,7 +11,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
 
-        - name: Checkout Repo
+        - name: Checkout Repository
           uses: actions/checkout@v1
 
 
@@ -20,21 +20,17 @@ jobs:
           with:
             terraform_version: 1.9.3
 
-        - name: Terraform Initialization
-          uses: hashicorp/terraform-github-actions/init@v0.4.0
-
-          env:
-            GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-            TF_ACTION_WORKING_DIR: 'terraform'
-            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        
-        - name: Terraform Validation
-          uses: hashicorp/terraform-github-actions/validate@v0.3.7
-
-
+        - name: Terraform Init
+          run: terraform init
+    
+        - name: Terraform Validate
+          run: terraform validate
+    
+        - name: Terraform Plan
+          run: terraform plan
+    
         - name: Terraform Apply
-          uses: hashicorp/terraform-github-actions/apply@v0.4.0
+          run: terraform apply -auto-approve
           
           env:
             GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
